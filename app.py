@@ -53,15 +53,11 @@ def return_meme():
     img = Image.open(res.raw)
     return serve_pil_image(img)
 
-@app.route("/football",methods=['GET'])
-def football_meme():
-    img_url_football=random.choice(get_new_memes('https://www.memedroid.com/memes/tag/football'))
-    res=requests.get(img_url_football,stream=True)
-    res.raw.decode_content=True
-    img_football=Image.open(res.raw)
-    return serve_pil_image(img_football)
-
-
-
-if __name__=='__main__':
-    app.run(debug=True,port=8000)
+@app.route("/<meme>",methods=['GET'])
+def randomMeme(meme):
+    src="https://www.memedroid.com/memes/tag/"+meme
+    img_url_random = random.choice(get_new_memes(src))
+    res = requests.get(img_url_random, stream=True)
+    res.raw.decode_content = True
+    img = Image.open(res.raw)
+    return serve_pil_image(img)
