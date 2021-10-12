@@ -7,12 +7,11 @@ from io import BytesIO
 
 app = Flask(__name__)
 
-def get_new_memes():
+def get_new_memes(url):
     """Scrapers the website and extracts image URLs
     Returns:
         imgs [list]: List of image URLs
     """
-    url = 'https://www.memedroid.com/memes/tag/programming'
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'lxml')
     divs = soup.find_all('div', class_='item-aux-container')
@@ -22,7 +21,6 @@ def get_new_memes():
         if img.startswith('http') and img.endswith('jpeg'):
             imgs.append(img)
     return imgs
-
 
 def serve_pil_image(pil_img):
     """Stores the downloaded image file in-memory
@@ -49,8 +47,21 @@ def set_response_headers(response):
 
 @app.route("/", methods=['GET'])
 def return_meme():
-    img_url = random.choice(get_new_memes())
+    img_url = random.choice(get_new_memes('https://www.memedroid.com/memes/tag/programming'))
     res = requests.get(img_url, stream=True)
     res.raw.decode_content = True
     img = Image.open(res.raw)
     return serve_pil_image(img)
+
+@app.route("/football",methods=['GET'])
+def football_meme():
+    img_url_football=random.choice(get_new_memes('https://www.memedroid.com/memes/tag/football'))
+    res=requests.get(img_url_football,stream=True)
+    res.raw.decode_content=True
+    img_football=Image.open(res.raw)
+    return serve_pil_image(img_football)
+
+
+
+if __name__=='__main__':
+    app.run(debug=True,port=8000)
