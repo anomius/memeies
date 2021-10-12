@@ -53,16 +53,4 @@ def return_meme():
     img = Image.open(res.raw)
     return serve_pil_image(img)
 
-@app.route("/<topic>",methods=['GET'])
-def football_meme(topic):
-    s='https://www.memedroid.com/memes/tag/'+topic
-    img_url_football=random.choice(get_new_memes(s))
-    res=requests.get(img_url_football,stream=True)
-    res.raw.decode_content=True
-    img_football=Image.open(res.raw)
-    return serve_pil_image(img_football)
 
-
-
-# if __name__=='__main__':
-#     app.run(debug=True,port=8000)
