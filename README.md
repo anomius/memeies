@@ -14,6 +14,13 @@ here is
 <h1 align=center> MEMEies</h1>
 
  Lol life ain't constant but memes are a way to escape the pain of existence 
+ now you can add memes to your github readme and have them displayed on your website as well as you can use topics to search for memes
+
+ ```
+ https://memeies.herokuapp.com/<topic>
+ 
+ ```
+
 
 <img align=center src="https://memeies.herokuapp.com/" alt="meme" />
 
