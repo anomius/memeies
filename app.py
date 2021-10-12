@@ -54,3 +54,14 @@ def return_meme():
     return serve_pil_image(img)
 
 
+@app.route("/<meme>",methods=['GET'])
+def randomMeme(meme):
+    src="https://www.memedroid.com/memes/tag/"+meme
+    img_url_random = random.choice(get_new_memes(src))
+    res = requests.get(img_url_random, stream=True)
+    res.raw.decode_content = True
+    img = Image.open(res.raw)
+    return serve_pil_image(img)
+
+
+
